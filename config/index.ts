@@ -1,5 +1,5 @@
 import { defineConfig, type UserConfigExport } from '@tarojs/cli'
-import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
+import path from 'path';
 import devConfig from './dev'
 import prodConfig from './prod'
 
@@ -28,6 +28,14 @@ export default defineConfig<'vite'>(async (merge, { command, mode }) => {
     },
     framework: 'react',
     compiler: 'vite',
+    alias: {
+      '@': path.resolve(__dirname, '..','src'),
+      '@/components': path.resolve(__dirname, '..', 'src/components'),
+      '@/utils': path.resolve(__dirname, '..', 'src/utils'),
+      '@/assets': path.resolve(__dirname, '..', 'src/assets'),
+      '@/actions': path.resolve(__dirname, '..', 'src/actions'),
+      '@/constants': path.resolve(__dirname, '..', 'src/constants'),
+    },
     mini: {
       postcss: {
         pxtransform: {

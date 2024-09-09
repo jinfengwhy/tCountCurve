@@ -1,6 +1,8 @@
 import {
   ADD,
-  MINUS
+  MINUS,
+  RESET,
+  EDIT
 } from '../constants/counter'
 
 export const add = () => {
@@ -11,6 +13,17 @@ export const add = () => {
 export const minus = () => {
   return {
     type: MINUS
+  }
+}
+export const reset = () => {
+  return {
+    type: RESET
+  }
+}
+export const edit = (value: number) => {
+  return {
+    type: EDIT,
+    value
   }
 }
 

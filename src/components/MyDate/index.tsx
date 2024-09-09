@@ -2,6 +2,8 @@ import { memo, useEffect, useState } from "react";
 
 import { View, Text } from "@tarojs/components";
 
+import { formatHMS, formatYMD, getDayName } from "@/utils/time";
+
 import './index.less';
 
 const Index = memo(() => {
@@ -19,8 +21,11 @@ const Index = memo(() => {
 
   return (
     <View className="components-my-date">
-      <Text className="date">{ date.toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit' })}</Text>
-      <Text>{ date.toLocaleTimeString() }</Text>
+      <Text className="date">{ formatYMD(date) }</Text>
+      <Text className="separator">|</Text>
+      <Text className="weekday">{ getDayName(date) }</Text>
+      <Text className="separator">|</Text>
+      <Text className="time">{ formatHMS(date) }</Text>
     </View>
   );
 });
