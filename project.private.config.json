@@ -3,5 +3,6 @@
   "projectname": "tCountCurve",
   "setting": {
     "compileHotReLoad": true
-  }
+  },
+  "libVersion": "3.5.5"
 }
