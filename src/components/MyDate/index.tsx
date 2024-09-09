@@ -4,7 +4,7 @@ import { View, Text } from "@tarojs/components";
 
 import './index.less';
 
-const DateComponent = memo(() => {
+const Index = memo(() => {
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
@@ -25,4 +25,4 @@ const DateComponent = memo(() => {
   );
 });
 
-export default DateComponent;
+export default Index;
