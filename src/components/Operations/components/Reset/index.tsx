@@ -5,6 +5,7 @@ import { View, Button } from '@tarojs/components'
 import { reset } from '@/actions/counter'
 
 import './index.less'
+import Taro from '@tarojs/taro'
 
 type PageDispatchProps = {
   reset: () => void
@@ -19,9 +20,20 @@ interface Index {
 function Index (props: IProps) {
   const { reset } = props;
 
+  function handleReset () {
+    Taro.showToast({
+      title: '清零成功',
+      icon: 'none',
+      duration: 2000,
+      success: () => {
+        reset()
+      }
+    })
+  }
+
   return (
     <View className='operations-reset'>
-      <Button className='reset_btn' onClick={reset}>清零</Button>
+      <Button className='reset_btn' onClick={handleReset}>清零</Button>
     </View>
   )
 }
