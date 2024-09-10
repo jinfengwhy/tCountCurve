@@ -1,3 +1,58 @@
-.pages-history {
+@gap: 10rpx;
 
+.pages-history {
+  // border: 10rpx solid red;
+  padding: 13rpx;
+
+  .history-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .history-summary {
+    display: flex;
+    align-items: center;
+    margin-bottom: @gap;
+    font-weight: bold;
+    color: green;
+    &__date {
+      margin-right: 127rpx;
+    }
+  }
+
+  .history-list {
+    &__item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__time-count {
+      display: flex;
+      align-items: center;
+      margin-bottom: @gap;
+      font-weight: bold;
+    }
+    &__time {
+      margin-right: 171rpx;
+    }
+
+    &__remarks {
+      display: flex;
+      align-items: center;
+      margin-bottom: @gap;
+    }
+    &__txt {
+      flex-shrink: 0;
+    }
+
+    &__separator {
+    }
+  }
+
+  .history-separator {
+    margin-top: @gap;
+    margin-bottom: @gap * 2;
+    height: 2rpx;
+    background-color: #d3d3d3;
+  }
 }

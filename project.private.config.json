@@ -4,5 +4,18 @@
   "setting": {
     "compileHotReLoad": true
   },
-  "libVersion": "3.5.5"
+  "libVersion": "3.5.5",
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/history/index",
+          "pathName": "pages/history/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
+  }
 }

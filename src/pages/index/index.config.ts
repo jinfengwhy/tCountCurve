@@ -1,3 +1,3 @@
 export default definePageConfig({
-  navigationBarTitleText: '计数'
+  navigationBarTitleText: '念佛计数'
 })
