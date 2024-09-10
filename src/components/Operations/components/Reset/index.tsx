@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
-
-import { View, Button } from '@tarojs/components'
+import Taro from '@tarojs/taro'
 
 import { reset } from '@/actions/counter'
 
+import { View, Button } from '@tarojs/components'
+
 import './index.less'
-import Taro from '@tarojs/taro'
 
 type PageDispatchProps = {
   reset: () => void

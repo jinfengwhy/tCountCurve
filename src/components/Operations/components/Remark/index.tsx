@@ -1,12 +1,28 @@
 import { memo, useEffect, useState } from "react";
+import { connect } from "react-redux";
 import Taro from '@tarojs/taro'
+
+import { putRemarkAction } from "@/actions/remark";
+import { reset } from '@/actions/counter'
+
 import { View, Button, Textarea } from "@tarojs/components";
 
 import "./index.less";
 
-interface IProps {}
+type PageStateProps = {
+  counter: {
+    num: number
+  }
+}
 
-const Remark = memo((props: IProps) => {
+type PageDispatchProps = {
+  putRemark: (num: number, value: string) => void
+  reset: () => void
+}
+
+type IProps = PageStateProps & PageDispatchProps
+
+const Index = memo((props: IProps) => {
   const [value, setValue] = useState("");
   const [isShowTextarea, setIsShowTextarea] = useState(false);
 
@@ -21,15 +37,28 @@ const Remark = memo((props: IProps) => {
   }
 
   function handleSave() {
-    Taro.showToast({
-      title: '保存成功，到历史查看',
-      icon: 'none',
-      duration: 2000,
-      success: () => {
-        console.log('save value: ', value);
-        onClear();
+    Taro.showModal({
+      title: '提示',
+      content: '会清空此次计数，确认保存吗？',
+      success: function (res) {
+        if (res.confirm) {
+          confirmCallback();
+        }
       }
     })
+
+    function confirmCallback() {
+      Taro.showToast({
+        title: '保存成功，请点击历史查看',
+        icon: 'none',
+        duration: 2000,
+        success: () => {
+          props.putRemark(props.counter.num, value);
+          props.reset();
+          onClear();
+        }
+      })
+    }
   }
 
   function onClear() {
@@ -68,4 +97,13 @@ const Remark = memo((props: IProps) => {
   );
 });
 
-export default Remark;
+const mapStateToProps = (state: PageStateProps) => ({
+  counter: state.counter,
+})
+
+const mapDispatchToProps = (dispatch: any) => ({
+  putRemark: (counter: number, remark: string) => dispatch(putRemarkAction(counter, remark)),
+  reset: () => dispatch(reset())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Index);
