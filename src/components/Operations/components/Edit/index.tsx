@@ -71,7 +71,7 @@ const Index = memo((props: IProps) => {
           value={tmpNum + ""}
           type='number'
           placeholder='请输入新的计数值'
-          maxlength={10}
+          maxlength={7}
           focus
           onInput={e => setTmpNum(Number(e.detail.value))}
           onConfirm={handleSave}

@@ -10,15 +10,19 @@ function Index () {
   return (
     <View className='pages-index'>
       {/* 日期 */}
-      <MyDate />
+      <MyDate>
+
+        {/* 历史记录 */}
+        <HistoryTxt />
+      </MyDate>
 
       {/* 计数器 */}
       <MyCounter>
-        <HistoryTxt />
+
+        {/* 操作按钮 */}
+        <Operations />
       </MyCounter>
 
-      {/* 操作按钮 */}
-      <Operations />
     </View>
   )
 }

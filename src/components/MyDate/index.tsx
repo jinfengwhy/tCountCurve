@@ -6,7 +6,11 @@ import { formatHMS, formatYMD, getDayName } from "@/utils/time";
 
 import './index.less';
 
-const Index = memo(() => {
+interface IProps {
+  children?: any;
+}
+
+const Index = memo((props: IProps) => {
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
@@ -26,6 +30,7 @@ const Index = memo(() => {
       <Text className="weekday">{ getDayName(date) }</Text>
       <Text className="separator">|</Text>
       <Text className="time">{ formatHMS(date) }</Text>
+      { props.children }
     </View>
   );
 });

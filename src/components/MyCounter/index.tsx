@@ -31,7 +31,7 @@ function Index (props: IProps) {
   return (
     <View className='components-my-counter'>
       <View className="counter">
-        <Text className="num">计数结果：{counter.num}</Text>
+        <Text className="num">计数：{counter.num}</Text>
         { props.children }
       </View>
       <Button className='add_btn' onClick={add}>+1</Button>
