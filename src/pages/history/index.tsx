@@ -1,6 +1,8 @@
 import { connect } from 'react-redux'
 
-import { View, Button, Text } from '@tarojs/components'
+import { View, Text } from '@tarojs/components'
+import HistoryEmpty from '@/components/HistoryEmpty'
+import HistoryFixed from '@/components/HistoryFixed'
 
 import './index.less'
 
@@ -15,7 +17,6 @@ type PageStateProps = {
 }
 
 type PageDispatchProps = {
-  // add: () => void
 }
 
 type IProps = PageStateProps & PageDispatchProps
@@ -26,7 +27,13 @@ function Index (props: IProps) {
   return (
     <View className='pages-history'>
       {
-        Array.from(cache.entries()).map(([key, valueArr]) => (
+        cache.size === 0 && <HistoryEmpty />
+      }
+      {
+        cache.size > 0 && <HistoryFixed />
+      }
+      {
+        Array.from(cache.entries()).sort().map(([key, valueArr]) => (
           <View className='history-item' key={key.date}>
             <View className='history-summary'>
               <Text className='history-summary__date'>日期：{key.date}</Text>
@@ -62,7 +69,6 @@ const mapStateToProps = (state: PageStateProps) => ({
 })
 
 const mapDispatchToProps = (dispatch: any) => ({
-  // add: () => dispatch(add()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Index);

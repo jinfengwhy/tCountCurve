@@ -9,6 +9,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/curve/index",
+          "pathName": "pages/curve/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/history/index",
           "pathName": "pages/history/index",
           "query": "",

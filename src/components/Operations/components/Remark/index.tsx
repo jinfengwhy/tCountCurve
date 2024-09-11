@@ -86,8 +86,10 @@ const Index = memo((props: IProps) => {
           value={value}
           placeholder='记录此时心情，分享给其他人吧'
           focus
-          autoFocus
           autoHeight
+          showCount
+          showConfirmBar={false}
+          maxlength={71}
           onInput={e => setValue(e.detail.value)}
           onConfirm={handleSave}
           onBlur={onClear}
