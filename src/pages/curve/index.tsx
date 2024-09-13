@@ -32,7 +32,7 @@ function Index (props: IProps) {
     total += item.sum;
   });
   const data = { categories, series };
-  // const cache = {
+  // const data = {
   //   categories: ["09-01", "09-02", "09-03", "09-04", "09-05", "09-06", "09-07", "09-08", "09-09"],
   //   series: [
   //     {
