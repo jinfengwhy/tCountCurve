@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { connect } from 'react-redux'
+import Taro from '@tarojs/taro';
 
 import { add } from '@/actions/counter'
 import useAudioPlayer from '@/hooks/useAudioPlayer';
@@ -30,6 +32,12 @@ interface Index {
 function Index (props: IProps) {
   const { counter, add } = props;
   const { playAudio } = useAudioPlayer(dingAudio);
+
+  useEffect(() => {
+    Taro.setKeepScreenOn({
+      keepScreenOn: true
+    });
+  }, [])
 
   function handleClick() {
     add()
