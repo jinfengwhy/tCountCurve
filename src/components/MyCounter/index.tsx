@@ -1,9 +1,11 @@
 import { connect } from 'react-redux'
-import Taro from '@tarojs/taro'
+
+import { add } from '@/actions/counter'
+import useAudioPlayer from '@/hooks/useAudioPlayer';
+
+import dingAudio from '@/assets/audio/wooden-fish.mp3';
 
 import { View, Button, Text } from '@tarojs/components'
-
-import { add } from '../../actions/counter'
 
 import './index.less'
 
@@ -27,6 +29,12 @@ interface Index {
 
 function Index (props: IProps) {
   const { counter, add } = props;
+  const { playAudio } = useAudioPlayer(dingAudio);
+
+  function handleClick() {
+    add()
+    playAudio();
+  }
 
   return (
     <View className='components-my-counter'>
@@ -34,7 +42,7 @@ function Index (props: IProps) {
         <Text className="num">计数：{counter.num}</Text>
         { props.children }
       </View>
-      <Button className='add_btn' onClick={add}>+1</Button>
+      <Button className='add_btn' onClick={handleClick}>+1</Button>
     </View>
   )
 }
