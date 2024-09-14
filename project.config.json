@@ -2,14 +2,14 @@
   "miniprogramRoot": "dist/",
   "projectname": "tCountCurve",
   "description": "taro count curve",
-  "appid": "wx8e2aa3f5b9e1fa23",
+  "appid": "wxb1266bd5c4b3430a",
   "setting": {
     "urlCheck": true,
     "es6": false,
     "enhance": false,
     "compileHotReLoad": false,
     "postcss": false,
-    "minified": false,
+    "minified": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
