@@ -30,3 +30,9 @@ export const formatDateTime = (date: Date) => {
 
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 };
+
+export const compareDate = (date1: string | Date, date2: string | Date, isAsc: boolean = true) => {
+  const d1 = new Date(date1);
+  const d2 = new Date(date2);
+  return isAsc ? d1.getTime() - d2.getTime() : d2.getTime() - d1.getTime();
+};

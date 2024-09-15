@@ -1,5 +1,7 @@
 import { connect } from 'react-redux'
 
+import { compareDate } from '@/utils/time'
+
 import { View, Text } from '@tarojs/components'
 import HistoryEmpty from '@/components/HistoryEmpty'
 import HistoryFixed from '@/components/HistoryFixed'
@@ -33,7 +35,9 @@ function Index (props: IProps) {
         cache.size > 0 && <HistoryFixed />
       }
       {
-        Array.from(cache.entries()).sort().map(([key, valueArr]) => (
+        Array.from(cache.entries())
+          .sort((a, b) => compareDate(a[0].date, b[0].date, false))
+          .map(([key, valueArr]) => (
           <View className='history-item' key={key.date}>
             <View className='history-summary'>
               <Text className='history-summary__date'>日期：{key.date}</Text>
