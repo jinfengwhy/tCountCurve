@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 
 import { formatNumber } from '@/utils/format'
+import useShare from '@/hooks/useShare'
 
 import { Text, View } from '@tarojs/components'
 import LineChart from '@/components/LineChart/index'
@@ -20,7 +21,11 @@ type PageStateProps = {
 type IProps = PageStateProps
 
 function Index (props: IProps) {
+  // 页面分享
+  useShare();
+
   const { cache } = props.remark;
+
   const values: number[] = [];
   const categories: string[] = [];
   const series = [{ name: '计数曲线', data: values }];

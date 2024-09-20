@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 
 import { compareDate } from '@/utils/time'
+import useShare from '@/hooks/useShare'
 
 import { View, Text } from '@tarojs/components'
 import HistoryEmpty from '@/components/HistoryEmpty'
@@ -24,6 +25,9 @@ type PageDispatchProps = {
 type IProps = PageStateProps & PageDispatchProps
 
 function Index (props: IProps) {
+  // 页面分享
+  useShare();
+
   const { cache } = props.remark;
 
   return (
