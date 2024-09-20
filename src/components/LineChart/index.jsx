@@ -81,7 +81,7 @@ export default class Index extends Component {
                     lineColor: "#DE4A42",
                     showLabel: true,
                     labelAlign: "right",
-                    labelOffsetX: -227,
+                    labelOffsetX: -271,
                     labelOffsetY: 0,
                     labelText: "均值：" + average,
                     // labelFontColor: "#666666",
