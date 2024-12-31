@@ -10,7 +10,8 @@ function Index () {
 
   function handleClick(key) {
     const map = {
-      counter: '/pages/counter/index'
+      counter: '/pages/counter/index',
+      photo: '/pages/photo/index'
     }
     Taro.navigateTo({
       url: map[key]
@@ -21,7 +22,7 @@ function Index () {
     <View className='pages-index'>
 
       <Button className='item item-1' onClick={() => handleClick('counter')}>记忆计数器</Button>
-      <Button className='item item-2' onClick={() => handleClick('counter')}>记忆计数器</Button>
+      <Button className='item item-2' onClick={() => handleClick('photo')}>拍照识车</Button>
 
     </View>
   )

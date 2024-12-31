@@ -1,0 +1,66 @@
+.components-res-car {
+  margin: 17rpx;
+  border: 1rpx solid #D3D3D3;
+  padding: 7rpx;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 29rpx;
+
+  &.no-data {
+    border: none;
+    height: 51vh;
+  }
+
+  .brand {
+    margin-bottom: 7rpx;
+  }
+
+  .item {
+    width: 100%;
+    margin-bottom: 37rpx;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    &__summary {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      &--year, &--name, &--confidence {
+        margin-bottom: 7rpx;
+      }
+    }
+
+    &__pic {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &--img {
+        width: 101rpx;
+        height: 101rpx;
+      }
+    }
+
+    &__baike {
+      width: 100%;
+    }
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  .red {
+    color: red;
+  }
+
+  .tcenter {
+    text-align: center;
+  }
+}

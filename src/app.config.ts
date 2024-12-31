@@ -3,7 +3,9 @@ export default defineAppConfig({
     'pages/index/index',
     'pages/counter/index',
     'pages/history/index',
-    'pages/curve/index'
+    'pages/curve/index',
+    'pages/photo/index',
+    'pages/result/index'
   ],
   window: {
     backgroundTextStyle: 'light',
