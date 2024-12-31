@@ -1,5 +1,5 @@
 export default definePageConfig({
-  navigationBarTitleText: '工具箱',
+  navigationBarTitleText: '计数',
   enableShareAppMessage: true,
   enableShareTimeline: true
 })

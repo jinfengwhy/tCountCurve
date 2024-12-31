@@ -1,9 +1,6 @@
+import Taro from "@tarojs/taro";
 import useShare from '@/hooks/useShare';
-import { View } from '@tarojs/components'
-import MyDate from '@/components/MyDate/index';
-import MyCounter from '@/components/MyCounter/index'
-import Operations from '@/components/Operations/index'
-import HistoryTxt from '@/components/HistoryTxt/index'
+import { View, Button} from '@tarojs/components'
 
 import './index.less'
 
@@ -11,21 +8,20 @@ function Index () {
   // 页面分享
   useShare();
 
+  function handleClick(key) {
+    const map = {
+      counter: '/pages/counter/index'
+    }
+    Taro.navigateTo({
+      url: map[key]
+    });
+  }
+
   return (
     <View className='pages-index'>
-      {/* 日期 */}
-      <MyDate>
 
-        {/* 历史记录 */}
-        <HistoryTxt />
-      </MyDate>
-
-      {/* 计数器 */}
-      <MyCounter>
-
-        {/* 操作按钮 */}
-        <Operations />
-      </MyCounter>
+      <Button className='item item-1' onClick={() => handleClick('counter')}>记忆计数器</Button>
+      <Button className='item item-2' onClick={() => handleClick('counter')}>记忆计数器</Button>
 
     </View>
   )
