@@ -1,10 +1,14 @@
 import Taro from "@tarojs/taro";
+import useUpdate from '@/hooks/useUpdate';
 import useShare from '@/hooks/useShare';
-import { View, Button} from '@tarojs/components'
+import { View, Button } from '@tarojs/components'
 
 import './index.less'
 
 function Index () {
+  // 检查更新
+  useUpdate();
+
   // 页面分享
   useShare();
 
@@ -22,7 +26,7 @@ function Index () {
     <View className='pages-index'>
 
       <Button className='item item-1' onClick={() => handleClick('counter')}>记忆计数器</Button>
-      <Button className='item item-2' onClick={() => handleClick('photo')}>拍照识车</Button>
+      <Button className='item item-2' onClick={() => handleClick('photo')}>拍照识车王</Button>
 
     </View>
   )
