@@ -76,7 +76,7 @@ function Index ({ form, setFormState, resetFormState }) {
   };
 
   return (
-    <View className="pages-index container">
+    <View className="components-pe-form">
       <Form>
         {inputFieldsConfig.map((fieldConfig, index) => (
           <React.Fragment key={index}>

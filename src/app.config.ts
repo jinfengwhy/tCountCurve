@@ -6,7 +6,7 @@ export default defineAppConfig({
     'pages/curve/index',
     'pages/photo/index',
     'pages/result/index',
-    'pages/pe_home/index',
+    'pages/peHome/index',
   ],
   window: {
     backgroundTextStyle: 'light',
