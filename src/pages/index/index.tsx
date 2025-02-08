@@ -15,7 +15,8 @@ function Index () {
   function handleClick(key) {
     const map = {
       counter: '/pages/counter/index',
-      photo: '/pages/photo/index'
+      photo: '/pages/photo/index',
+      pe_home: '/pages/pe_home/index'
     }
     Taro.navigateTo({
       url: map[key]
@@ -27,6 +28,7 @@ function Index () {
 
       <Button className='item item-1' onClick={() => handleClick('counter')}>记忆计数器</Button>
       <Button className='item item-2' onClick={() => handleClick('photo')}>拍照识车王</Button>
+      <Button className='item item-3' onClick={() => handleClick('pe_home')}>盈利端 - 市盈率法估值</Button>
 
     </View>
   )

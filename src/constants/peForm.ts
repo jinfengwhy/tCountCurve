@@ -1,0 +1,2 @@
+export const SET_PE_FORM_STATE = 'SET_PE_FORM_STATE'
+export const RESET_PE_FORM_STATE = 'RESET_PE_FORM_STATE'
