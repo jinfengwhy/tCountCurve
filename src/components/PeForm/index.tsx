@@ -71,7 +71,8 @@ function Index ({ form, setFormState, resetFormState }) {
   const handleGenerateTable = () => {
     if (validateForm()) {
       // 这里可以添加生成表格的逻辑
-      Taro.showToast({ title: '表单校验通过，生成表格', icon: 'success' });
+      // Taro.showToast({ title: '表单校验通过，生成表格', icon: 'success' });
+      Taro.navigateTo({ url: '/pages/peResult/index' });
     }
   };
 

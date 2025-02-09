@@ -1,0 +1,188 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import { View } from '@tarojs/components';
+import './index.less';
+
+interface IReduxFormData {
+  stockName: string;
+  totalShares: string;
+  netProfitForT: string;
+  minEarningsRate: string;
+  maxEarningsRate: string;
+  safetyMargin: string;
+  growthRateT1: string;
+  growthRateT2: string;
+  growthRateT3: string;
+}
+
+interface IProps {
+  form: IReduxFormData;
+}
+
+interface IRowData {
+  year: string;
+  stockLow: string;
+  stockHigh: string;
+  stockValue: string;
+  netValueLow: string;
+  netValueHigh: string;
+  peRatioLow: string;
+  peRatioHigh: string;
+  netProfit: string;
+  netProfitGrowth: string;
+}
+
+const columns = [
+  { label: '年限', key: 'year' },
+  { label: '股价（低）', key: 'stockLow' },
+  { label: '股价（高）', key: 'stockHigh' },
+  { label: '股本（亿）', key: 'stockValue' },
+  { label: '市值（亿）（低）', key: 'netValueLow' },
+  { label: '市值（亿）（高）', key: 'netValueHigh' },
+  { label: '市盈率（低）', key: 'peRatioLow' },
+  { label: '市盈率（高）', key: 'peRatioHigh' },
+  { label: '净利润（亿）', key: 'netProfit' },
+  { label: '净利润增长率', key: 'netProfitGrowth' },
+];
+
+const calculateFinancialMetrics = (
+  minEarningsRate: number,
+  maxEarningsRate: number,
+  netProfitForT: number,
+  totalShares: number,
+  netProfitGrowthRate: number
+) => {
+  const netProfit = (netProfitForT * (1 + netProfitGrowthRate)).toFixed(2);  // 转为字符串
+  const stockLow = (minEarningsRate * parseFloat(netProfit) / totalShares).toFixed(2);
+  const stockHigh = (maxEarningsRate * parseFloat(netProfit) / totalShares).toFixed(2);
+  const netValueLow = (minEarningsRate * parseFloat(netProfit)).toFixed(2);
+  const netValueHigh = (maxEarningsRate * parseFloat(netProfit)).toFixed(2);
+
+  return { stockLow, stockHigh, netValueLow, netValueHigh, netProfit };
+};
+
+
+const calculateRows = (form: IReduxFormData): IRowData[] => {
+  const totalShares = parseFloat(form.totalShares);
+  const minEarningsRate = parseFloat(form.minEarningsRate);
+  const maxEarningsRate = parseFloat(form.maxEarningsRate);
+  const netProfitForT = parseFloat(form.netProfitForT);
+
+  const calculateT = (growthRate: number, previousNetProfit: number) => {
+    return {
+      stockValue: form.totalShares,
+      peRatioLow: form.minEarningsRate,
+      peRatioHigh: form.maxEarningsRate,
+      netProfitGrowth: `${growthRate * 100}%`, // 转为百分比形式
+      ...calculateFinancialMetrics(
+        minEarningsRate,
+        maxEarningsRate,
+        previousNetProfit,
+        totalShares,
+        growthRate,
+      )
+    };
+  };
+
+  // T年
+  const t = {
+    year: 'T年',
+    stockValue: form.totalShares,
+    peRatioLow: form.minEarningsRate,
+    peRatioHigh: form.maxEarningsRate,
+    netProfitGrowth: '',
+    ...calculateFinancialMetrics(
+      minEarningsRate,
+      maxEarningsRate,
+      netProfitForT,
+      totalShares,
+      0,
+    ),
+  };
+
+  const results = [t];
+  const growthRates = [
+    parseFloat(form.growthRateT1) / 100,
+    parseFloat(form.growthRateT2) / 100,
+    parseFloat(form.growthRateT3) / 100
+  ];
+
+  let previousNetProfit = parseFloat(t.netProfit);
+
+  // 生成 T+1, T+2, T+3
+  for (let i = 0; i < growthRates.length; i++) {
+    const yearLabel = `T+${i + 1}年`;
+    const newT = calculateT(growthRates[i], previousNetProfit);
+    results.push({ year: yearLabel, ...newT });
+    previousNetProfit = parseFloat(newT.netProfit);
+  }
+
+  // 计算平均值
+  const average = {
+    year: '求平均',
+    stockLow: ((parseFloat(t.stockLow) + parseFloat(results[1].stockLow) + parseFloat(results[2].stockLow) + parseFloat(results[3].stockLow)) / 4).toFixed(2),
+    stockHigh: ((parseFloat(t.stockHigh) + parseFloat(results[1].stockHigh) + parseFloat(results[2].stockHigh) + parseFloat(results[3].stockHigh))  / 4).toFixed(2),
+    stockValue: '',
+    peRatioLow: '',
+    peRatioHigh: '',
+    netProfitGrowth: '',
+    netValueLow: '',
+    netValueHigh: '',
+    netProfit: '',
+  };
+  results.push(average);
+
+  // 最后行安全边际
+  results.push({
+    year: `安全边际/${form.safetyMargin}`,
+    stockLow: (parseFloat(average.stockLow) * parseFloat(form.safetyMargin)).toFixed(2),
+    stockHigh: (parseFloat(average.stockHigh) * parseFloat(form.safetyMargin)).toFixed(2),
+    stockValue: '',
+    peRatioLow: '',
+    peRatioHigh: '',
+    netProfitGrowth: '',
+    netValueLow: '',
+    netValueHigh: '',
+    netProfit: '',
+  });
+
+  return results;
+};
+
+
+function FinancialTable({ form }: IProps) {
+  const rows = calculateRows(form);
+
+  return (
+    <View className="components-pe-table">
+      <View className="valuation-table">
+        <View className="table-header">
+          {columns.map((column, index) => (
+            <View key={index} className="table-cell bold">{column.label}</View>
+          ))}
+        </View>
+        {rows.map((row, rowIndex) => (
+          <View
+            key={rowIndex}
+            className={`table-row ${rowIndex >= rows.length - 2 ? 'bold green' : ''}`} // 为最后两行添加加粗样式
+          >
+            {columns.map((column, colIndex) => (
+              <View
+                key={colIndex}
+                className={`table-cell ${rowIndex >= rows.length - 2 && colIndex === 0 ? 'red' : ''}`} // 只有第一列加红
+              >
+                {row[column.key]}
+              </View>
+            ))}
+          </View>
+        ))}
+      </View>
+    </View>
+  );
+}
+
+const mapStateToProps = (state: { peForm: IReduxFormData }) => ({
+  form: state.peForm,
+});
+
+export default connect(mapStateToProps)(FinancialTable);
