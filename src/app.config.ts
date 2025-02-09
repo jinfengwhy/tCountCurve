@@ -12,6 +12,9 @@ export default defineAppConfig({
     'pages/pbHome/index',
     'pages/pbResult/index',
     'pages/pbRecord/index',
+    'pages/xdHome/index',
+    'pages/xdResult/index',
+    'pages/xdRecord/index',
   ],
   window: {
     backgroundTextStyle: 'light',

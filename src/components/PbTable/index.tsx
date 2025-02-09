@@ -76,7 +76,7 @@ const calculateRows = (form: IReduxFormData): IRowData[] => {
       stockValue: form.totalShares,
       pbRatioLow: form.minEarningsRate,
       pbRatioHigh: form.maxEarningsRate,
-      netProfitGrowth: `${growthRate * 100}%`, // 转为百分比形式
+      netProfitGrowth: `${(growthRate * 100).toFixed(2)}%`, // 转为百分比形式
       ...calculateFinancialMetrics(
         minEarningsRate,
         maxEarningsRate,

@@ -7,6 +7,8 @@ import peForm from './peForm'
 import peCache from './peCache'
 import pbForm from './pbForm'
 import pbCache from './pbCache'
+import xdForm from './xdForm'
+import xdCache from './xdCache'
 
 export default combineReducers({
   counter,
@@ -16,5 +18,7 @@ export default combineReducers({
   peForm,
   peCache,
   pbForm,
-  pbCache
+  pbCache,
+  xdForm,
+  xdCache
 })

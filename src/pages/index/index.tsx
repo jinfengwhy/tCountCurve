@@ -18,6 +18,7 @@ function Index () {
       photo: '/pages/photo/index',
       peHome: '/pages/peHome/index',
       pbHome: '/pages/pbHome/index',
+      xdHome: '/pages/xdHome/index',
     }
     Taro.navigateTo({
       url: map[key]
@@ -31,6 +32,7 @@ function Index () {
       <Button className='item item-2' onClick={() => handleClick('photo')}>拍照识车王</Button>
       <Button className='item item-3' onClick={() => handleClick('peHome')}>盈利端 - 市盈率法估值</Button>
       <Button className='item item-4' onClick={() => handleClick('pbHome')}>资产端 - 市净率法估值</Button>
+      <Button className='item item-5' onClick={() => handleClick('xdHome')}>股息率法估值</Button>
     </View>
   )
 }

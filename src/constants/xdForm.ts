@@ -1,0 +1,2 @@
+export const SET_XD_FORM_STATE = 'SET_XD_FORM_STATE'
+export const RESET_XD_FORM_STATE = 'RESET_XD_FORM_STATE'

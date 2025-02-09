@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro';
 import { connect } from 'react-redux';
-import { putPeCacheAction } from "@/actions/peCache";
+import { putXdCacheAction } from "@/actions/xdCache";
 import { formatDateTime } from '@/utils/time';
 import { Button, View } from '@tarojs/components';
 import './index.less';
@@ -19,7 +19,7 @@ interface IReduxFormData {
 
 interface IProps {
   form: IReduxFormData;
-  putPeCache: (key: string, value: any) => void;
+  putXdCache: (key: string, value: any) => void;
 }
 
 interface IRowData {
@@ -29,8 +29,8 @@ interface IRowData {
   stockValue: string;
   netValueLow: string;
   netValueHigh: string;
-  peRatioLow: string;
-  peRatioHigh: string;
+  xdRatioLow: string;
+  xdRatioHigh: string;
   netProfit: string;
   netProfitGrowth: string;
 }
@@ -42,10 +42,10 @@ const columns = [
   { label: '股本（亿）', key: 'stockValue' },
   { label: '市值（亿）（低）', key: 'netValueLow' },
   { label: '市值（亿）（高）', key: 'netValueHigh' },
-  { label: '市盈率（低）', key: 'peRatioLow' },
-  { label: '市盈率（高）', key: 'peRatioHigh' },
-  { label: '净利润（亿）', key: 'netProfit' },
-  { label: '净利润增长率', key: 'netProfitGrowth' },
+  { label: '市净率（低）', key: 'xdRatioLow' },
+  { label: '市净率（高）', key: 'xdRatioHigh' },
+  { label: '净资产（亿）', key: 'netProfit' },
+  { label: '净资产增长率', key: 'netProfitGrowth' },
 ];
 
 const calculateFinancialMetrics = (
@@ -74,8 +74,8 @@ const calculateRows = (form: IReduxFormData): IRowData[] => {
   const calculateT = (growthRate: number, previousNetProfit: number) => {
     return {
       stockValue: form.totalShares,
-      peRatioLow: form.minEarningsRate,
-      peRatioHigh: form.maxEarningsRate,
+      xdRatioLow: form.minEarningsRate,
+      xdRatioHigh: form.maxEarningsRate,
       netProfitGrowth: `${(growthRate * 100).toFixed(2)}%`, // 转为百分比形式
       ...calculateFinancialMetrics(
         minEarningsRate,
@@ -91,8 +91,8 @@ const calculateRows = (form: IReduxFormData): IRowData[] => {
   const t = {
     year: 'T年',
     stockValue: form.totalShares,
-    peRatioLow: form.minEarningsRate,
-    peRatioHigh: form.maxEarningsRate,
+    xdRatioLow: form.minEarningsRate,
+    xdRatioHigh: form.maxEarningsRate,
     netProfitGrowth: '',
     ...calculateFinancialMetrics(
       minEarningsRate,
@@ -126,8 +126,8 @@ const calculateRows = (form: IReduxFormData): IRowData[] => {
     stockLow: ((parseFloat(t.stockLow) + parseFloat(results[1].stockLow) + parseFloat(results[2].stockLow) + parseFloat(results[3].stockLow)) / 4).toFixed(2),
     stockHigh: ((parseFloat(t.stockHigh) + parseFloat(results[1].stockHigh) + parseFloat(results[2].stockHigh) + parseFloat(results[3].stockHigh))  / 4).toFixed(2),
     stockValue: '',
-    peRatioLow: '',
-    peRatioHigh: '',
+    xdRatioLow: '',
+    xdRatioHigh: '',
     netProfitGrowth: '',
     netValueLow: '',
     netValueHigh: '',
@@ -141,8 +141,8 @@ const calculateRows = (form: IReduxFormData): IRowData[] => {
     stockLow: (parseFloat(average.stockLow) * parseFloat(form.safetyMargin)).toFixed(2),
     stockHigh: (parseFloat(average.stockHigh) * parseFloat(form.safetyMargin)).toFixed(2),
     stockValue: '',
-    peRatioLow: '',
-    peRatioHigh: '',
+    xdRatioLow: '',
+    xdRatioHigh: '',
     netProfitGrowth: '',
     netValueLow: '',
     netValueHigh: '',
@@ -153,18 +153,18 @@ const calculateRows = (form: IReduxFormData): IRowData[] => {
 };
 
 
-function FinancialTable({ form, putPeCache }: IProps) {
+function FinancialTable({ form, putXdCache }: IProps) {
   const rows = calculateRows(form);
 
   const handleSave = () => {
     const key = formatDateTime(new Date());
     const value = {
       stockName: form.stockName,
-      type: '市盈率法估值',
+      type: '股息率法估值',
       average: `求平均：${rows[rows.length - 2].stockLow} ~ ${rows[rows.length - 2].stockHigh}`,
       saftyMargin: `安全边际/${form.safetyMargin}：${rows[rows.length - 1].stockLow} ~ ${rows[rows.length - 1].stockHigh}`
     };
-    putPeCache(key, value);
+    putXdCache(key, value);
 
     Taro.showToast({
       title: '保存成功，可点击估值记录查看',
@@ -174,7 +174,7 @@ function FinancialTable({ form, putPeCache }: IProps) {
   };
 
   return (
-    <View className="components-pe-table">
+    <View className="components-xd-table">
       <View className="valuation-table-wrapper">
         <View className="valuation-table">
           <View className="table-header">
@@ -209,12 +209,12 @@ function FinancialTable({ form, putPeCache }: IProps) {
   );
 }
 
-const mapStateToProps = (state: { peForm: IReduxFormData }) => ({
-  form: state.peForm,
+const mapStateToProps = (state: { xdForm: IReduxFormData }) => ({
+  form: state.xdForm,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  putPeCache: (key: string, value: any) => dispatch(putPeCacheAction(key, value)),
+  putXdCache: (key: string, value: any) => dispatch(putXdCacheAction(key, value)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FinancialTable);
