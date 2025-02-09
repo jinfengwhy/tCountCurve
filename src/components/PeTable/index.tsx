@@ -1,6 +1,8 @@
-import React from 'react';
+import Taro from '@tarojs/taro';
 import { connect } from 'react-redux';
-import { View } from '@tarojs/components';
+import { putPeCacheAction } from "@/actions/peCache";
+import { formatDateTime } from '@/utils/time';
+import { Button, View } from '@tarojs/components';
 import './index.less';
 
 interface IReduxFormData {
@@ -17,6 +19,7 @@ interface IReduxFormData {
 
 interface IProps {
   form: IReduxFormData;
+  putPeCache: (key: string, value: any) => void;
 }
 
 interface IRowData {
@@ -150,15 +153,35 @@ const calculateRows = (form: IReduxFormData): IRowData[] => {
 };
 
 
-function FinancialTable({ form }: IProps) {
+function FinancialTable({ form, putPeCache }: IProps) {
   const rows = calculateRows(form);
 
+  const handleSave = () => {
+    const key = formatDateTime(new Date());
+    const value = {
+      stockName: form.stockName,
+      type: '市盈率法估值',
+      average: `求平均：${rows[rows.length - 2].stockLow} ~ ${rows[rows.length - 2].stockHigh}`,
+      saftyMargin: `安全边际/${form.safetyMargin}：${rows[rows.length - 1].stockLow} ~ ${rows[rows.length - 1].stockHigh}`
+    };
+    putPeCache(key, value);
+
+    Taro.showToast({
+      title: '保存成功，可点击估值记录查看',
+      icon: 'success',
+      duration: 1000,
+    });
+  };
+
   return (
+    <>
     <View className="components-pe-table">
       <View className="valuation-table">
         <View className="table-header">
           {columns.map((column, index) => (
-            <View key={index} className="table-cell bold">{column.label}</View>
+            <View key={index} className="table-cell bold">
+              {index === 0 ? `${form.stockName}` : column.label}
+            </View>
           ))}
         </View>
         {rows.map((row, rowIndex) => (
@@ -177,7 +200,12 @@ function FinancialTable({ form }: IProps) {
           </View>
         ))}
       </View>
+
     </View>
+    <Button className='components-pe-table-save-btn' type='primary' onClick={handleSave}>
+      保存
+    </Button>
+    </>
   );
 }
 
@@ -185,4 +213,8 @@ const mapStateToProps = (state: { peForm: IReduxFormData }) => ({
   form: state.peForm,
 });
 
-export default connect(mapStateToProps)(FinancialTable);
+const mapDispatchToProps = (dispatch: any) => ({
+  putPeCache: (key: string, value: any) => dispatch(putPeCacheAction(key, value)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(FinancialTable);

@@ -4,11 +4,13 @@ import remark from './remark';
 import photo from './photo';
 import autho from './autho';
 import peForm from './peForm'
+import peCache from './peCache'
 
 export default combineReducers({
   counter,
   remark,
   photo,
   autho,
-  peForm
+  peForm,
+  peCache
 })
