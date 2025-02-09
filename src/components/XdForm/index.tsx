@@ -21,7 +21,7 @@ interface InputFieldConfig {
   label: string;
   name: keyof FormState;
   placeholder: string;
-  type: 'text' | 'number';
+  type: 'text' | 'digit';
   unit?: string;
   isPositive?: boolean;  // 更改为 isPositive，表示只要求为正数
   isSafetyMargin?: boolean;
@@ -29,13 +29,13 @@ interface InputFieldConfig {
 
 const inputFieldsConfig: InputFieldConfig[] = [
   { label: '股票名称', name: 'stockName', placeholder: '请输入', type: 'text' },
-  { label: 'T年每股分红', name: 'dividendPerShareT', placeholder: '请输入', type: 'number', unit: '元', isPositive: true },
-  { label: '最低股息率', name: 'minDividendYield', placeholder: '请输入', type: 'number', unit: '%', isPositive: true },
-  { label: '最高股息率', name: 'maxDividendYield', placeholder: '请输入', type: 'number', unit: '%', isPositive: true },
-  { label: '安全边际(范围0~1之间)', name: 'safetyMargin', placeholder: '请输入', type: 'number', isSafetyMargin: true },
-  { label: 'T+1年每股分红', name: 'dividendPerShareT1', placeholder: '请输入', type: 'number', unit: '元', isPositive: true },
-  { label: 'T+2年每股分红', name: 'dividendPerShareT2', placeholder: '请输入', type: 'number', unit: '元', isPositive: true },
-  { label: 'T+3年每股分红', name: 'dividendPerShareT3', placeholder: '请输入', type: 'number', unit: '元', isPositive: true },
+  { label: 'T年每股分红', name: 'dividendPerShareT', placeholder: '请输入', type: 'digit', unit: '元', isPositive: true },
+  { label: '最低股息率', name: 'minDividendYield', placeholder: '请输入', type: 'digit', unit: '%', isPositive: true },
+  { label: '最高股息率', name: 'maxDividendYield', placeholder: '请输入', type: 'digit', unit: '%', isPositive: true },
+  { label: '安全边际(范围0~1之间)', name: 'safetyMargin', placeholder: '请输入', type: 'digit', isSafetyMargin: true },
+  { label: 'T+1年每股分红', name: 'dividendPerShareT1', placeholder: '请输入', type: 'digit', unit: '元', isPositive: true },
+  { label: 'T+2年每股分红', name: 'dividendPerShareT2', placeholder: '请输入', type: 'digit', unit: '元', isPositive: true },
+  { label: 'T+3年每股分红', name: 'dividendPerShareT3', placeholder: '请输入', type: 'digit', unit: '元', isPositive: true },
 ];
 
 function Index({ form, setFormState, resetFormState }) {

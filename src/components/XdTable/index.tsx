@@ -57,10 +57,10 @@ const calculateRows = (form: IReduxFormData): IRowData[] => {
     };
   };
 
-  results.push(calculateRow('T', form.dividendPerShareT));
-  results.push(calculateRow('T+1', form.dividendPerShareT1));
-  results.push(calculateRow('T+2', form.dividendPerShareT2));
-  results.push(calculateRow('T+3', form.dividendPerShareT3));
+  results.push(calculateRow('T年', form.dividendPerShareT));
+  results.push(calculateRow('T+1年', form.dividendPerShareT1));
+  results.push(calculateRow('T+2年', form.dividendPerShareT2));
+  results.push(calculateRow('T+3年', form.dividendPerShareT3));
 
   results.push({
     year: '求平均',
@@ -97,8 +97,8 @@ function FinancialTable({ form, putXdCache }: IProps) {
     const value = {
       stockName: form.stockName,
       type: '股息率法估值',
-      average: `求平均：${rows[rows.length - 2].lowStockPrice} ~ ${rows[rows.length - 2].lowStockPrice}`,
-      saftyMargin: `安全边际/${form.safetyMargin}：${rows[rows.length - 1].lowStockPrice} ~ ${rows[rows.length - 1].lowStockPrice}`
+      average: `求平均：${rows[rows.length - 2].lowStockPrice} ~ ${rows[rows.length - 2].highStockPrice}`,
+      saftyMargin: `安全边际/${form.safetyMargin}：${rows[rows.length - 1].lowStockPrice} ~ ${rows[rows.length - 1].highStockPrice}`
     };
     putXdCache(key, value);
 

@@ -7,7 +7,7 @@ interface InputFieldProps {
   value: string;
   placeholder: string;
   unit?: string;
-  type: 'text' | 'number';
+  type: 'text' | 'digit';
   onChange: (event) => void;
 }
 

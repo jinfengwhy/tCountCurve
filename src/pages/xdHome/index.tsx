@@ -22,6 +22,7 @@ function Index () {
 
       <View className='bottom-fixed-panel'>
         <View className='valuation-formula'>估值原理：股息率 = 每股分红 / 股价</View>
+        <View className='valuation-formula'>每股分红 = 净利润 * 分红率 / 股本</View>
         <View className='valuation-history-link' onClick={handleClick}>查看估值记录</View>
       </View>
     </View>

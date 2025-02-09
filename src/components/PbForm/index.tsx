@@ -22,7 +22,7 @@ interface InputFieldConfig {
   label: string;
   name: keyof FormState;
   placeholder: string;
-  type: 'text' | 'number';
+  type: 'text' | 'digit';
   unit?: string;
   isPositive?: boolean;  // 更改为 isPositive，表示只要求为正数
   isSafetyMargin?: boolean;
@@ -30,14 +30,14 @@ interface InputFieldConfig {
 
 const inputFieldsConfig: InputFieldConfig[] = [
   { label: '股票名称', name: 'stockName', placeholder: '请输入', type: 'text' },
-  { label: '总股本数', name: 'totalShares', placeholder: '请输入', type: 'number', unit: '亿', isPositive: true },
-  { label: 'T年净资产', name: 'netProfitForT', placeholder: '请输入', type: 'number', unit: '亿', isPositive: true },
-  { label: '最低市净率', name: 'minEarningsRate', placeholder: '请输入', type: 'number', unit: '倍', isPositive: true },
-  { label: '最高市净率', name: 'maxEarningsRate', placeholder: '请输入', type: 'number', unit: '倍', isPositive: true },
-  { label: '安全边际(范围0~1之间)', name: 'safetyMargin', placeholder: '请输入', type: 'number', isSafetyMargin: true },
-  { label: 'T+1年净资产增长率', name: 'growthRateT1', placeholder: '请输入', type: 'number', unit: '%' },
-  { label: 'T+2年净资产增长率', name: 'growthRateT2', placeholder: '请输入', type: 'number', unit: '%' },
-  { label: 'T+3年净资产增长率', name: 'growthRateT3', placeholder: '请输入', type: 'number', unit: '%' },
+  { label: '总股本数', name: 'totalShares', placeholder: '请输入', type: 'digit', unit: '亿', isPositive: true },
+  { label: 'T年净资产', name: 'netProfitForT', placeholder: '请输入', type: 'digit', unit: '亿', isPositive: true },
+  { label: '最低市净率', name: 'minEarningsRate', placeholder: '请输入', type: 'digit', unit: '倍', isPositive: true },
+  { label: '最高市净率', name: 'maxEarningsRate', placeholder: '请输入', type: 'digit', unit: '倍', isPositive: true },
+  { label: '安全边际(范围0~1之间)', name: 'safetyMargin', placeholder: '请输入', type: 'digit', isSafetyMargin: true },
+  { label: 'T+1年净资产增长率', name: 'growthRateT1', placeholder: '请输入', type: 'digit', unit: '%' },
+  { label: 'T+2年净资产增长率', name: 'growthRateT2', placeholder: '请输入', type: 'digit', unit: '%' },
+  { label: 'T+3年净资产增长率', name: 'growthRateT3', placeholder: '请输入', type: 'digit', unit: '%' },
 ];
 
 function Index ({ form, setFormState, resetFormState }) {
