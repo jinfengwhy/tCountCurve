@@ -9,6 +9,9 @@ export default defineAppConfig({
     'pages/peHome/index',
     'pages/peResult/index',
     'pages/peRecord/index',
+    'pages/pbHome/index',
+    'pages/pbResult/index',
+    'pages/pbRecord/index',
   ],
   window: {
     backgroundTextStyle: 'light',

@@ -1,0 +1,2 @@
+export const SET_PB_FORM_STATE = 'SET_PB_FORM_STATE'
+export const RESET_PB_FORM_STATE = 'RESET_PB_FORM_STATE'
