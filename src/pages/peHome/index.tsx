@@ -10,7 +10,9 @@ function Index () {
   useShare();
 
   const handleClick = () => {
-    console.log('history')
+    Taro.navigateTo({
+      url: '/pages/peRecord/index'
+    })
   }
 
   return (

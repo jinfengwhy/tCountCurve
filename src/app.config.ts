@@ -8,6 +8,7 @@ export default defineAppConfig({
     'pages/result/index',
     'pages/peHome/index',
     'pages/peResult/index',
+    'pages/peRecord/index',
   ],
   window: {
     backgroundTextStyle: 'light',

@@ -168,44 +168,44 @@ function FinancialTable({ form, putPeCache }: IProps) {
 
     Taro.showToast({
       title: '保存成功，可点击估值记录查看',
-      icon: 'success',
-      duration: 1000,
+      icon: 'none',
+      duration: 1500,
     });
   };
 
   return (
-    <>
     <View className="components-pe-table">
-      <View className="valuation-table">
-        <View className="table-header">
-          {columns.map((column, index) => (
-            <View key={index} className="table-cell bold">
-              {index === 0 ? `${form.stockName}` : column.label}
-            </View>
-          ))}
-        </View>
-        {rows.map((row, rowIndex) => (
-          <View
-            key={rowIndex}
-            className={`table-row ${rowIndex >= rows.length - 2 ? 'bold green' : ''}`} // 为最后两行添加加粗样式
-          >
-            {columns.map((column, colIndex) => (
-              <View
-                key={colIndex}
-                className={`table-cell ${rowIndex >= rows.length - 2 && colIndex === 0 ? 'red' : ''}`} // 只有第一列加红
-              >
-                {row[column.key]}
+      <View className="valuation-table-wrapper">
+        <View className="valuation-table">
+          <View className="table-header">
+            {columns.map((column, index) => (
+              <View key={index} className="table-cell bold">
+                {index === 0 ? `${form.stockName}` : column.label}
               </View>
             ))}
           </View>
-        ))}
-      </View>
+          {rows.map((row, rowIndex) => (
+            <View
+              key={rowIndex}
+              className={`table-row ${rowIndex >= rows.length - 2 ? 'bold green' : ''}`} // 为最后两行添加加粗样式
+            >
+              {columns.map((column, colIndex) => (
+                <View
+                  key={colIndex}
+                  className={`table-cell ${rowIndex >= rows.length - 2 && colIndex === 0 ? 'red' : ''}`} // 只有第一列加红
+                >
+                  {row[column.key]}
+                </View>
+              ))}
+            </View>
+          ))}
+        </View>
 
+      </View>
+      <Button className='save-btn' type='primary' onClick={handleSave}>
+        保存
+      </Button>
     </View>
-    <Button className='components-pe-table-save-btn' type='primary' onClick={handleSave}>
-      保存
-    </Button>
-    </>
   );
 }
 
