@@ -18,8 +18,9 @@ function Index () {
 
       <PeForm />
 
-      <View className='history' onClick={handleClick}>
-        查看估值记录
+      <View className='bottom-fixed-panel'>
+        <View className='valuation-formula'>估值原理：市盈率 * 净利润 = 市值 = 股本 * 股价</View>
+        <View className='valuation-history-link' onClick={handleClick}>查看估值记录</View>
       </View>
     </View>
   )

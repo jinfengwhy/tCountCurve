@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   netProfitForT: '',
   minEarningsRate: '',
   maxEarningsRate: '',
-  safetyMargin: '',
+  safetyMargin: 0.8,
   growthRateT1: '',
   growthRateT2: '',
   growthRateT3: '',
