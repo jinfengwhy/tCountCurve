@@ -7,14 +7,13 @@ import './index.less';
 
 interface IReduxFormData {
   stockName: string;
-  totalShares: string;
-  netProfitForT: string;
-  minEarningsRate: string;
-  maxEarningsRate: string;
+  dividendPerShareT: string;
+  minDividendYield: string;
+  maxDividendYield: string;
   safetyMargin: string;
-  growthRateT1: string;
-  growthRateT2: string;
-  growthRateT3: string;
+  dividendPerShareT1: string;
+  dividendPerShareT2: string;
+  dividendPerShareT3: string;
 }
 
 interface IProps {
@@ -24,133 +23,70 @@ interface IProps {
 
 interface IRowData {
   year: string;
-  stockLow: string;
-  stockHigh: string;
-  stockValue: string;
-  netValueLow: string;
-  netValueHigh: string;
-  xdRatioLow: string;
-  xdRatioHigh: string;
-  netProfit: string;
-  netProfitGrowth: string;
+  lowStockPrice: string;
+  highStockPrice: string;
+  dividendPerShare: string;
+  lowDividendYield: string;
+  highDividendYield: string;
 }
 
 const columns = [
   { label: '年限', key: 'year' },
-  { label: '股价（低）', key: 'stockLow' },
-  { label: '股价（高）', key: 'stockHigh' },
-  { label: '股本（亿）', key: 'stockValue' },
-  { label: '市值（亿）（低）', key: 'netValueLow' },
-  { label: '市值（亿）（高）', key: 'netValueHigh' },
-  { label: '市净率（低）', key: 'xdRatioLow' },
-  { label: '市净率（高）', key: 'xdRatioHigh' },
-  { label: '净资产（亿）', key: 'netProfit' },
-  { label: '净资产增长率', key: 'netProfitGrowth' },
+  { label: '股价（低）', key: 'lowStockPrice' },
+  { label: '股价（高）', key: 'highStockPrice' },
+  { label: '每股分红', key: 'dividendPerShare' },
+  { label: '股息率（低）', key: 'lowDividendYield' },
+  { label: '股息率（高）', key: 'highDividendYield' },
 ];
-
-const calculateFinancialMetrics = (
-  minEarningsRate: number,
-  maxEarningsRate: number,
-  netProfitForT: number,
-  totalShares: number,
-  netProfitGrowthRate: number
-) => {
-  const netProfit = (netProfitForT * (1 + netProfitGrowthRate)).toFixed(2);  // 转为字符串
-  const stockLow = (minEarningsRate * parseFloat(netProfit) / totalShares).toFixed(2);
-  const stockHigh = (maxEarningsRate * parseFloat(netProfit) / totalShares).toFixed(2);
-  const netValueLow = (minEarningsRate * parseFloat(netProfit)).toFixed(2);
-  const netValueHigh = (maxEarningsRate * parseFloat(netProfit)).toFixed(2);
-
-  return { stockLow, stockHigh, netValueLow, netValueHigh, netProfit };
-};
 
 
 const calculateRows = (form: IReduxFormData): IRowData[] => {
-  const totalShares = parseFloat(form.totalShares);
-  const minEarningsRate = parseFloat(form.minEarningsRate);
-  const maxEarningsRate = parseFloat(form.maxEarningsRate);
-  const netProfitForT = parseFloat(form.netProfitForT);
+  const results: IRowData[] = [];
+  const minDividendYield = parseFloat(form.minDividendYield);
+  const maxDividendYield = parseFloat(form.maxDividendYield);
 
-  const calculateT = (growthRate: number, previousNetProfit: number) => {
+  const calculateRow = (year: string, dividendPerShare: string): IRowData => {
+    const dividend = parseFloat(dividendPerShare);
     return {
-      stockValue: form.totalShares,
-      xdRatioLow: form.minEarningsRate,
-      xdRatioHigh: form.maxEarningsRate,
-      netProfitGrowth: `${(growthRate * 100).toFixed(2)}%`, // 转为百分比形式
-      ...calculateFinancialMetrics(
-        minEarningsRate,
-        maxEarningsRate,
-        previousNetProfit,
-        totalShares,
-        growthRate,
-      )
+      year,
+      lowStockPrice: (dividend / maxDividendYield * 100).toFixed(3),
+      highStockPrice: (dividend / minDividendYield * 100).toFixed(3),
+      dividendPerShare,
+      lowDividendYield: `${form.minDividendYield}%`,
+      highDividendYield: `${form.maxDividendYield}%`,
     };
   };
 
-  // T年
-  const t = {
-    year: 'T年',
-    stockValue: form.totalShares,
-    xdRatioLow: form.minEarningsRate,
-    xdRatioHigh: form.maxEarningsRate,
-    netProfitGrowth: '',
-    ...calculateFinancialMetrics(
-      minEarningsRate,
-      maxEarningsRate,
-      netProfitForT,
-      totalShares,
-      0,
-    ),
-  };
+  results.push(calculateRow('T', form.dividendPerShareT));
+  results.push(calculateRow('T+1', form.dividendPerShareT1));
+  results.push(calculateRow('T+2', form.dividendPerShareT2));
+  results.push(calculateRow('T+3', form.dividendPerShareT3));
 
-  const results = [t];
-  const growthRates = [
-    parseFloat(form.growthRateT1) / 100,
-    parseFloat(form.growthRateT2) / 100,
-    parseFloat(form.growthRateT3) / 100
-  ];
-
-  let previousNetProfit = parseFloat(t.netProfit);
-
-  // 生成 T+1, T+2, T+3
-  for (let i = 0; i < growthRates.length; i++) {
-    const yearLabel = `T+${i + 1}年`;
-    const newT = calculateT(growthRates[i], previousNetProfit);
-    results.push({ year: yearLabel, ...newT });
-    previousNetProfit = parseFloat(newT.netProfit);
-  }
-
-  // 计算平均值
-  const average = {
+  results.push({
     year: '求平均',
-    stockLow: ((parseFloat(t.stockLow) + parseFloat(results[1].stockLow) + parseFloat(results[2].stockLow) + parseFloat(results[3].stockLow)) / 4).toFixed(2),
-    stockHigh: ((parseFloat(t.stockHigh) + parseFloat(results[1].stockHigh) + parseFloat(results[2].stockHigh) + parseFloat(results[3].stockHigh))  / 4).toFixed(2),
-    stockValue: '',
-    xdRatioLow: '',
-    xdRatioHigh: '',
-    netProfitGrowth: '',
-    netValueLow: '',
-    netValueHigh: '',
-    netProfit: '',
-  };
-  results.push(average);
+    lowStockPrice: (
+      (parseFloat(results[0].lowStockPrice) + parseFloat(results[1].lowStockPrice) + parseFloat(results[2].lowStockPrice) + parseFloat(results[3].lowStockPrice)) / 4
+    ).toFixed(3),
+    highStockPrice: (
+      (parseFloat(results[0].highStockPrice) + parseFloat(results[1].highStockPrice) + parseFloat(results[2].highStockPrice) + parseFloat(results[3].highStockPrice)) / 4
+    ).toFixed(3),
+    dividendPerShare: '',
+    lowDividendYield: '',
+    highDividendYield: '',
+  });
 
-  // 最后行安全边际
   results.push({
     year: `安全边际/${form.safetyMargin}`,
-    stockLow: (parseFloat(average.stockLow) * parseFloat(form.safetyMargin)).toFixed(2),
-    stockHigh: (parseFloat(average.stockHigh) * parseFloat(form.safetyMargin)).toFixed(2),
-    stockValue: '',
-    xdRatioLow: '',
-    xdRatioHigh: '',
-    netProfitGrowth: '',
-    netValueLow: '',
-    netValueHigh: '',
-    netProfit: '',
+    lowStockPrice: (parseFloat(results[4].lowStockPrice) * parseFloat(form.safetyMargin)).toFixed(3),
+    highStockPrice: (parseFloat(results[4].highStockPrice) * parseFloat(form.safetyMargin)).toFixed(3),
+    dividendPerShare: '',
+    lowDividendYield: '',
+    highDividendYield: '',
   });
 
   return results;
 };
+
 
 
 function FinancialTable({ form, putXdCache }: IProps) {
@@ -161,8 +97,8 @@ function FinancialTable({ form, putXdCache }: IProps) {
     const value = {
       stockName: form.stockName,
       type: '股息率法估值',
-      average: `求平均：${rows[rows.length - 2].stockLow} ~ ${rows[rows.length - 2].stockHigh}`,
-      saftyMargin: `安全边际/${form.safetyMargin}：${rows[rows.length - 1].stockLow} ~ ${rows[rows.length - 1].stockHigh}`
+      average: `求平均：${rows[rows.length - 2].lowStockPrice} ~ ${rows[rows.length - 2].lowStockPrice}`,
+      saftyMargin: `安全边际/${form.safetyMargin}：${rows[rows.length - 1].lowStockPrice} ~ ${rows[rows.length - 1].lowStockPrice}`
     };
     putXdCache(key, value);
 

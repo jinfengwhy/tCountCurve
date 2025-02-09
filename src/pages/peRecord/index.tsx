@@ -32,7 +32,7 @@ function Index (props: IProps) {
       }
       {
         Array.from(cache.entries())
-          .sort((a, b) => compareDate(a[0], b[0], false))
+          .sort((a, b) => compareDate(a[0].replace('-','/'), b[0].replace('-','/'), false))
           .map(([key, value]) => (
             <>
               <View className='record-item' key={key}>

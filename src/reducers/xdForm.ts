@@ -2,14 +2,13 @@ import { SET_XD_FORM_STATE, RESET_XD_FORM_STATE } from '../constants/xdForm';
 
 const INITIAL_STATE = {
   stockName: '',
-  totalShares: '',
-  netProfitForT: '',
-  minEarningsRate: '',
-  maxEarningsRate: '',
+  dividendPerShareT: '',
+  minDividendYield: '',
+  maxDividendYield: '',
   safetyMargin: 0.8,
-  growthRateT1: '',
-  growthRateT2: '',
-  growthRateT3: '',
+  dividendPerShareT1: '',
+  dividendPerShareT2: '',
+  dividendPerShareT3: '',
 };
 
 export default function xdForm(state = INITIAL_STATE, action) {

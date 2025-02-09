@@ -8,14 +8,13 @@ import './index.less';
 
 interface FormState {
   stockName: string;
-  totalShares: string;
-  netProfitForT: string;
-  minEarningsRate: string;
-  maxEarningsRate: string;
+  dividendPerShareT: string;
+  minDividendYield: string;
+  maxDividendYield: string;
   safetyMargin: string;
-  growthRateT1: string;
-  growthRateT2: string;
-  growthRateT3: string;
+  dividendPerShareT1: string;
+  dividendPerShareT2: string;
+  dividendPerShareT3: string;
 }
 
 interface InputFieldConfig {
@@ -30,18 +29,16 @@ interface InputFieldConfig {
 
 const inputFieldsConfig: InputFieldConfig[] = [
   { label: '股票名称', name: 'stockName', placeholder: '请输入', type: 'text' },
-  { label: '总股本数', name: 'totalShares', placeholder: '请输入', type: 'number', unit: '亿', isPositive: true },
-  { label: 'T年净资产', name: 'netProfitForT', placeholder: '请输入', type: 'number', unit: '亿', isPositive: true },
-  { label: '最低市净率', name: 'minEarningsRate', placeholder: '请输入', type: 'number', unit: '倍', isPositive: true },
-  { label: '最高市净率', name: 'maxEarningsRate', placeholder: '请输入', type: 'number', unit: '倍', isPositive: true },
+  { label: 'T年每股分红', name: 'dividendPerShareT', placeholder: '请输入', type: 'number', unit: '元', isPositive: true },
+  { label: '最低股息率', name: 'minDividendYield', placeholder: '请输入', type: 'number', unit: '%', isPositive: true },
+  { label: '最高股息率', name: 'maxDividendYield', placeholder: '请输入', type: 'number', unit: '%', isPositive: true },
   { label: '安全边际(范围0~1之间)', name: 'safetyMargin', placeholder: '请输入', type: 'number', isSafetyMargin: true },
-  { label: 'T+1年净资产增长率', name: 'growthRateT1', placeholder: '请输入', type: 'number', unit: '%' },
-  { label: 'T+2年净资产增长率', name: 'growthRateT2', placeholder: '请输入', type: 'number', unit: '%' },
-  { label: 'T+3年净资产增长率', name: 'growthRateT3', placeholder: '请输入', type: 'number', unit: '%' },
+  { label: 'T+1年每股分红', name: 'dividendPerShareT1', placeholder: '请输入', type: 'number', unit: '元', isPositive: true },
+  { label: 'T+2年每股分红', name: 'dividendPerShareT2', placeholder: '请输入', type: 'number', unit: '元', isPositive: true },
+  { label: 'T+3年每股分红', name: 'dividendPerShareT3', placeholder: '请输入', type: 'number', unit: '元', isPositive: true },
 ];
 
-function Index ({ form, setFormState, resetFormState }) {
-
+function Index({ form, setFormState, resetFormState }) {
   const handleInputChange = (name: keyof FormState) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormState({ [name]: event.target.value });
   };
@@ -100,7 +97,7 @@ function Index ({ form, setFormState, resetFormState }) {
       </Form>
     </View>
   );
-};
+}
 
 const mapStateToProps = (state: { xdForm: FormState }) => ({
   form: state.xdForm,
