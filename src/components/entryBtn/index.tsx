@@ -50,7 +50,7 @@ const Index = memo(() => {
 
   return (
     <View className="components-entry-btn">
-      <Button className="btn" onClick={handleClick}>拍照识车</Button>
+      <Button type="primary" className="btn" onClick={handleClick}>拍照识车</Button>
     </View>
   );
 });
