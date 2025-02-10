@@ -3,7 +3,7 @@ import { useShareAppMessage, useShareTimeline } from "@tarojs/taro";
 // 定义一个自定义的分享钩子
 const useShare = () => {
   const shareConfig = {
-    title: '慧聚岛',
+    title: '慧聚估值',
     path: '/pages/index/index',
   };
 

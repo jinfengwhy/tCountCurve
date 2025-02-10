@@ -33,6 +33,10 @@ function Index () {
       <Button className='item item-3' onClick={() => handleClick('peHome')}>盈利端 - 市盈率法估值</Button>
       <Button className='item item-4' onClick={() => handleClick('pbHome')}>资产端 - 市净率法估值</Button>
       <Button className='item item-5' onClick={() => handleClick('xdHome')}>股息率法估值</Button>
+
+      <View className='bottom-fixed-panel'>
+        <View className='contact-us'>联系作者：xingzhe290@foxmail.com</View>
+      </View>
     </View>
   )
 }
