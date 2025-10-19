@@ -16,6 +16,7 @@ function Index () {
     const map = {
       counter: '/pages/counter/index',
       photo: '/pages/photo/index',
+      market: '/pages/market/index',
       peHome: '/pages/peHome/index',
       pbHome: '/pages/pbHome/index',
       xdHome: '/pages/xdHome/index',
@@ -28,11 +29,11 @@ function Index () {
   return (
     <View className='pages-index'>
 
-      <Button className='item item-1' onClick={() => handleClick('counter')}>记忆计数器</Button>
-      <Button className='item item-2' onClick={() => handleClick('photo')}>拍照识车王</Button>
-      <Button className='item item-3' onClick={() => handleClick('peHome')}>盈利端 - 市盈率法估值</Button>
-      <Button className='item item-4' onClick={() => handleClick('pbHome')}>资产端 - 市净率法估值</Button>
-      <Button className='item item-5' onClick={() => handleClick('xdHome')}>股息率法估值</Button>
+      <Button className='item item-1' onClick={() => handleClick('market')}>市场定位</Button>
+      <Button className='item item-2' onClick={() => handleClick('peHome')}>盈利端 - 市盈率法估值</Button>
+      <Button className='item item-3' onClick={() => handleClick('pbHome')}>资产端 - 市净率法估值</Button>
+      <Button className='item item-4' onClick={() => handleClick('xdHome')}>股息率法估值</Button>
+      <Button className='item item-5' onClick={() => handleClick('counter')}>记忆计数器</Button>
 
       <View className='bottom-fixed-panel'>
         <View className='contact-us'>联系作者：xingzhe290@foxmail.com</View>

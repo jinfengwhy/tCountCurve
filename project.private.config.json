@@ -5,10 +5,17 @@
     "compileHotReLoad": true,
     "urlCheck": false
   },
-  "libVersion": "3.5.5",
+  "libVersion": "3.10.3",
   "condition": {
     "miniprogram": {
       "list": [
+        {
+          "name": "pages/market/index",
+          "pathName": "pages/market/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
         {
           "name": "pages/curve/index",
           "pathName": "pages/curve/index",
